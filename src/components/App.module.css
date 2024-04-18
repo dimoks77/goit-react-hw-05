@@ -1,0 +1,27 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  gap: 5px;
+}
+
+.link {
+  color: #0019cb;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color:red;
+}
+
+.active {
+  color: #ec4762;
+}
+
+

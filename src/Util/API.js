@@ -1,7 +1,8 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://api.themoviedb.org/3/";
-const api_key = "af0d5f243de6f7a5bfa482911cb42a9e";
+// const api_key = "af0d5f243de6f7a5bfa482911cb42a9e";
+const api_key = "c1217c74d1b01a47d91dca9bef5d6b8e";
 const language = "language=en-US";
 
 export const getTrends = async ({ abortController }) => {

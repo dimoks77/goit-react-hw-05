@@ -21,6 +21,7 @@ export default function HomePage() {
       } catch (error) {
         if (error.code !== "ERR_CANCELED") {
           setError(true);
+          console.log(error);
         }
       }
     }
@@ -33,7 +34,7 @@ export default function HomePage() {
   return (
     <>
       <h2 className={css.title}>Trending today</h2>
-      {error && <p>API Error!</p>}
+      {error && <p className={css.error}>API Error!</p>}
       
       {trends.length > 0 && (
         <ul className={css.list}>

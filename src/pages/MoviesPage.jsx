@@ -1,54 +1,61 @@
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import css from "./MoviesPage.module.css";
+import { searchMovieByName } from '../Util/API';
+import { Link } from "react-router-dom";
+
 
 export default function MoviesPage() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        const controller = new AbortController();
+        const fetchMovies = async () => {
+          try {
+            const data = await searchMovieByName('');
+            setMovies(data.results);
+          } catch (error) {
+            console.error("Error fetching movies:", error);
+          }
+        };
+    
+        fetchMovies();
+      }, []);
 
-
-        async function fetchData() {
-            try {
-                const response = await axios.get('https://api.themoviedb.org/3/',
-                {
-                    signal: controller.signal
-                },
-                { params: {
-                    api_key: 'c1217c74d1b01a47d91dca9bef5d6b8e5',
-                    lang: 'language=en-US',
-                    query: query,
-                    per_page: 12,
-                    page: page,
-                },
-            });
-                setMovies(response.data);
-            }
-            catch (error) {}
-        } 
-        fetchData();
-
-        return () => {
-            controller.abort();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const query = event.target.elements.query.value.trim();
+        if (query === "") {
+            console.log("Enter text for search!");
+            return;
         }
-    }, []);
-
+        try {
+            const data = await searchMovieByName(query);
+            setMovies(data.results);
+        } catch (error) {
+            console.error("Error searching movies:", error);
+        }
+        event.target.reset();
+    };
 
     return (
         <>
-            <h1>Movies</h1>
-            {movies.length >0 && (
-                <ul>
-                    {movies.map(movie => (
+            <form className={css.form} onSubmit={handleSubmit}>
+                <input className={css.input} autoComplete="off" autoFocus type="text" name="query" placeholder="" />
+                <button type="submit" className={css.btn}>
+                    Search
+                </button>
+            </form>
+
+            {movies.length > 0 && (
+                <ul className={css.list}>
+                    {movies.map((movie) => (
                         <li key={movie.id}>
-                            <p>Title: {movie.title}</p>
-                            <p>Desc: {movie.desc}</p>
+                            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+                                {movie.original_title}
+                            </Link>
                         </li>
                     ))}
-                    </ul>
+                </ul>
             )}
         </>
     );
-  }
-  
+}

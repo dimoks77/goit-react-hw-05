@@ -15,23 +15,43 @@ export const getTrends = async ({ abortController }) => {
   return response.data.results;
 };
 
-export const getMovieByID = async movieId => {
-    const response = await axios.get(`/movie/${movieId}`, {
-      params: {
-        language,
-        api_key,
-      },
-    });
-    return response.data;
-  };
+export const getMovieByID = async (movieId) => {
+  const response = await axios.get(`/movie/${movieId}`, {
+    params: {
+      language,
+      api_key,
+    },
+  });
+  return response.data;
+};
 
-  export const searchMovieByName = async movieName => {
-    const response = await axios.get(`/search/movie?query=${movieName}`, {
-      params: {
-        language,
-        api_key,
-      },
-    });
-    return response.data;
-  };
+export const searchMovieByName = async (movieName) => {
+  const response = await axios.get(`/search/movie`, {
+    params: {
+      query: movieName,
+      language,
+      api_key,
+    },
+  });
+  return response.data;
+};
 
+export const getCastByID = async (movieId) => {
+  const response = await axios.get(`/movie/${movieId}/credits`, {
+    params: {
+      language,
+      api_key,
+    },
+  });
+  return response.data.cast;
+};
+
+export const getReviewsByID = async (movieId) => {
+  const response = await axios.get(`/movie/${movieId}/reviews`, {
+    params: {
+      language,
+      api_key,
+    },
+  });
+  return response.data.results;
+};

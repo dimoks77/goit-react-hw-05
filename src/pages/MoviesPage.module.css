@@ -8,8 +8,11 @@
 }
 
 .input {
-    width: 450px;
-    border: 2px solid black;
+    width: 33%;
+    min-width: 320px;
+    border: 1px solid black;
+    padding-left: 10px; 
+    border-radius: 3px;
 }
 
 .btn {
@@ -17,6 +20,7 @@
     background: gray;
     color: white;
     transition: transform 0.3s ease;
+    font-weight: 400;
 }
 
 .btn:hover {

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { getMovieByID } from "../Util/API";
 import css from "./MovieDetailsPage.module.css";
-import { Link } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 
 export default function MoviesDetailsPage() {
@@ -23,8 +22,7 @@ export default function MoviesDetailsPage() {
   let year = 0;
   let userScore = '';
   let genresList = [];
-  
-  year
+    
   if (movie) {
     cover = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
     year = new Date(movie.release_date).getFullYear();
@@ -36,9 +34,9 @@ export default function MoviesDetailsPage() {
     <>
       {movie && (
         <div key={movie.id}>
-          {/* <button className={css.btn}><GoArrowLeft /> GoBack</button> */}
+          <button className={css.btn}><GoArrowLeft /> GoBack</button>
           <div className={css.wrapper}>
-            <img className={css.cover} src={cover} />
+            <img className={css.cover} src={cover} alt={movie.original_title} />
             <div className={css.details}>
               <h1>{movie.original_title} ({year})</h1>
               <p>User Score: {userScore !== '' ? userScore+'%' : 'No user score for this movie'}</p>
@@ -52,14 +50,14 @@ export default function MoviesDetailsPage() {
           <div className={css.info}>
               <p>Additional information</p>
               <ul>
-                <li><Link to="./cast">Cast</Link></li>
-                <li><Link to="./review">Reviews</Link></li>
+                <li><Link to="cast">Cast</Link></li>
+                <li><Link to="review">Reviews</Link></li>
               </ul>
           </div>
           <hr />
+          <Outlet />
         </div>
       )}
-      {/* {movie.comment && <p>comment</p>} */}
     </>
   );
 }

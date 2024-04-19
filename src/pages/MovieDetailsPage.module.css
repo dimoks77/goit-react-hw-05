@@ -39,4 +39,15 @@ h1 {
 .btn {
     background-color: white;
     border: 1px solid black;
+    margin: 20px 0 0 20px;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.outlet {
+    margin-left: 50px;
 }

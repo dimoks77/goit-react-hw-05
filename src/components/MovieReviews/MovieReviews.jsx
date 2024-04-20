@@ -5,9 +5,8 @@ import { getReviewsByID } from "../../Util/API";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  const [ reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
     const movieReviews = async () => {
@@ -33,13 +32,15 @@ const MovieReviews = () => {
         <ul className={css.review}>
           {reviews.map((review) => (
             <li key={review.id}>
-                <p className={css.author}>{review.author}</p>
-                <p>{review.content}</p>
+              <p className={css.author}>{review.author}</p>
+              <p>{review.content}</p>
             </li>
           ))}
         </ul>
       )}
-      {!isLoading && reviews.length === 0 && <div className={css.noreview}>Sorry. We dont have reviews for this movie.</div>}
+      {!isLoading && reviews.length === 0 && (
+        <div className={css.noreview}>Sorry. We dont have reviews for this movie.</div>
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { Link, Outlet, useParams, useLocation } from "react-router-dom";
 import { getMovieByID } from "../Util/API";
 import css from "./MovieDetailsPage.module.css";
@@ -70,7 +70,9 @@ export default function MoviesDetailsPage() {
             </ul>
           </div>
           <hr />
-          <Outlet />
+          <Suspense fallback={<div className={css.loading}>Loading ...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </>

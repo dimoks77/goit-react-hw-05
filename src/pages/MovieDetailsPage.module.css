@@ -31,23 +31,27 @@ h1 {
 }
 
 .info {
-    margin-left: 50px;
-    margin-top: 20px;
-    margin-bottom: 30px;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .btn {
-    background-color: white;
-    border: 1px solid black;
-    margin: 20px 0 0 20px;
-    transition: transform 0.3s ease;
-    font-size: 12px;
+  background-color: white;
+  border: 1px solid black;
+  margin: 20px 0 0 20px;
+  transition: transform 0.3s ease;
+  font-size: 12px;
 }
 
 .btn:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .outlet {
-    margin-left: 50px;
+  margin-left: 50px;
+}
+
+.loading {
+  margin-left: 50px;
 }

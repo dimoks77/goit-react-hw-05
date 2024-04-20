@@ -6,18 +6,26 @@ import { getReviewsByID } from "../../Util/API";
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [ reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     const movieReviews = async () => {
       try {
         const response = await getReviewsByID(movieId);
         setReviews(response);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     movieReviews();
   }, [movieId]);
+
+  if (isLoading) {
+    return <p className={css.loading}>Loading...</p>;
+  }
 
   return (
     <>
@@ -31,7 +39,7 @@ const MovieReviews = () => {
           ))}
         </ul>
       )}
-      {reviews.length === 0 && <div className={css.noreview}>Sorry. We dont have reviews for this movie.</div>}
+      {!isLoading && reviews.length === 0 && <div className={css.noreview}>Sorry. We dont have reviews for this movie.</div>}
     </>
   );
 };

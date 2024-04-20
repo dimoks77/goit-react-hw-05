@@ -19,3 +19,8 @@
   .author {
     font-weight: bold;
   }
+
+  .loading {
+    margin: 40px;
+    font-size: 20px;
+  }

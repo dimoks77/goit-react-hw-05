@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import css from "./MoviesPage.module.css";
 import { searchMovieByName } from '../Util/API';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { SearchForm } from '../components/SearchForm/SearchForm';
+import { MovieList } from '../components/MovieList/MovieList';
 
 
 export default function MoviesPage() {
     const [movies, setMovies] = useState([]);
+    const [params, setParams] = useSearchParams();
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -16,7 +19,6 @@ export default function MoviesPage() {
             console.error("Error fetching movies:", error);
           }
         };
-    
         fetchMovies();
       }, []);
 
@@ -34,28 +36,14 @@ export default function MoviesPage() {
             console.error("Error searching movies:", error);
         }
         event.target.reset();
+        params.set('query', query);
+        setParams(params);
     };
 
     return (
-        <>
-            <form className={css.form} onSubmit={handleSubmit}>
-                <input className={css.input} autoComplete="off" autoFocus type="text" name="query" placeholder="" />
-                <button type="submit" className={css.btn}>
-                    Search
-                </button>
-            </form>
-
-            {movies.length > 0 && (
-                <ul className={css.list}>
-                    {movies.map((movie) => (
-                        <li key={movie.id}>
-                            <Link to={`/movies/${movie.id}`} state={{ from: location }}>
-                                {movie.original_title}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <>  
+            <SearchForm handleSubmit={handleSubmit} />
+            {movies.length > 0 && <MovieList movies={movies} /> }
         </>
     );
 }

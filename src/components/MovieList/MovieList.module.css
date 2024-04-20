@@ -12,3 +12,8 @@ a {
 a:hover {
     color: red;    
 }
+
+.error {
+    font-weight: 600;
+    margin-left: 44px;
+}

@@ -7,18 +7,25 @@ import nophoto from "../../images/nophoto.png";
 const MovieCast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const movieCast = async () => {
       try {
         const response = await getCastByID(movieId);
         setCast(response);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     movieCast();
   }, [movieId]);
+
+  if (isLoading) {
+    return <p className={css.loading}>Loading...</p>;
+  }
 
   return (
     <>
@@ -39,7 +46,7 @@ const MovieCast = () => {
           ))}
         </ul>
       )}
-      {cast.length === 0 && <p>We dont have any cast for this movie.</p>}
+      {!isLoading && cast.length === 0 && <p>We dont have any cast for this movie.</p>}
     </>
   );
 };

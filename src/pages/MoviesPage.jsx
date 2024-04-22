@@ -9,35 +9,27 @@ export default function MoviesPage() {
 
   const [movies, setMovies] = useState([]);
   const [params, setParams] = useSearchParams();
+  const searchQuery = params.get("query");
+
 
   useEffect(() => {
+    if (!searchQuery) return;
     const fetchMovies = async () => {
       try {
-        const data = await searchMovieByName("");
+        const data = await searchMovieByName(searchQuery);
         setMovies(data.results);
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
     };
     fetchMovies();
-  }, []);
+  }, [searchQuery]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const query = event.target.elements.query.value.trim();
-    if (query === "") {
-      console.log("Enter text for search!");
-      return;
-    }
-    try {
-      const data = await searchMovieByName(query);
-      setMovies(data.results);
-    } catch (error) {
-      console.error("Error searching movies:", error);
-    }
+    setParams({ query: query });
     event.target.reset();
-    params.set("query", query);
-    setParams(params);
   };
 
   return (

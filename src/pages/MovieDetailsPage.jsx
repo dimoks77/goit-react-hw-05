@@ -65,7 +65,7 @@ export default function MoviesDetailsPage() {
                 <Link to="cast">Cast</Link>
               </li>
               <li>
-                <Link to="review">Reviews</Link>
+                <Link to="reviews">Reviews</Link>
               </li>
             </ul>
           </div>
